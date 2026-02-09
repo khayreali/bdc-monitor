@@ -22,7 +22,7 @@ class EdgarClient:
     TICKERS_URL = "https://www.sec.gov/files/company_tickers.json"
 
     # SEC says max 10 req/s — stay a bit under
-    _MIN_INTERVAL = 0.12
+    _MIN_INTERVAL = 0.12  # ~8 req/s to stay safe
 
     def __init__(self, settings: Settings):
         self.settings = settings
