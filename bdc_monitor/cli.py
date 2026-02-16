@@ -1,9 +1,11 @@
+import asyncio
 import logging
+from datetime import date
 from typing import Optional
 
 import typer
 
-from bdc_monitor.config import BDCS
+from bdc_monitor.config import BDCS, load_settings
 
 app = typer.Typer(help="BDC Redemption Monitor — pull filings, index, and query BDC data")
 
@@ -15,9 +17,24 @@ def ingest(
 ):
     """Pull filings from SEC EDGAR and store locally."""
     logging.basicConfig(level=logging.INFO)
-    tickers = bdcs.split(",") if bdcs else list(BDCS.keys())
-    typer.echo(f"Ingesting filings for {tickers} since {since}")
-    typer.echo("not implemented yet")
+
+    settings = load_settings()
+    tickers = [t.strip() for t in bdcs.split(",")] if bdcs else list(BDCS.keys())
+    since_date = date.fromisoformat(since)
+
+    asyncio.run(_run_ingest(settings, tickers, since_date))
+
+
+async def _run_ingest(settings, tickers, since_date):
+    from bdc_monitor.indexing.metadata_store import MetadataStore
+    from bdc_monitor.ingestion.edgar_client import EdgarClient
+    from bdc_monitor.ingestion.pipeline import IngestionPipeline
+
+    store = MetadataStore(settings.db_path)
+    async with EdgarClient(settings) as client:
+        pipeline = IngestionPipeline(client, store)
+        await pipeline.run(tickers, since_date)
+    store.close()
 
 
 @app.command()
@@ -26,7 +43,6 @@ def index(
 ):
     """Chunk and index ingested filings."""
     logging.basicConfig(level=logging.INFO)
-    typer.echo(f"Indexing with chunker={chunker}")
     typer.echo("not implemented yet")
 
 
@@ -36,7 +52,6 @@ def ask(
 ):
     """Ask a question about BDC filings."""
     logging.basicConfig(level=logging.INFO)
-    typer.echo(f"Question: {question}")
     typer.echo("not implemented yet")
 
 
