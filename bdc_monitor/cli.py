@@ -43,7 +43,36 @@ def index(
 ):
     """Chunk and index ingested filings."""
     logging.basicConfig(level=logging.INFO)
-    typer.echo("not implemented yet")
+    settings = load_settings()
+
+    if not settings.openai_api_key:
+        typer.echo("error: OPENAI_API_KEY not set in .env")
+        raise typer.Exit(1)
+
+    from bdc_monitor.indexing.bm25_index import BM25Index
+    from bdc_monitor.indexing.chunker import FixedSizeChunker
+    from bdc_monitor.indexing.embedder import OpenAIEmbedder
+    from bdc_monitor.indexing.metadata_store import MetadataStore
+    from bdc_monitor.indexing.pipeline import IndexingPipeline
+    from bdc_monitor.indexing.vector_store import VectorStore
+
+    store = MetadataStore(settings.db_path)
+
+    if chunker != "fixed":
+        typer.echo(f"chunker '{chunker}' not implemented yet")
+        raise typer.Exit(1)
+    chunker_impl = FixedSizeChunker()
+
+    embedder = OpenAIEmbedder(api_key=settings.openai_api_key)
+    vs = VectorStore(chroma_dir=settings.chroma_dir)
+    bm25 = BM25Index(persist_path=settings.data_dir / "bm25_index.pkl")
+
+    pipeline = IndexingPipeline(store, chunker_impl, embedder, vs, bm25)
+    stats = pipeline.run()
+
+    typer.echo(f"indexed {stats['sections']} sections -> {stats['chunks']} chunks")
+    typer.echo(f"vector store: {vs.count()} | bm25: {bm25.count()}")
+    store.close()
 
 
 @app.command()
