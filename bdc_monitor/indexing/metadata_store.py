@@ -1,10 +1,11 @@
 import sqlite3
 from pathlib import Path
 
-from bdc_monitor.domain import Filing, Section
+from bdc_monitor.domain import Chunk, Filing, Section
 
 
 class MetadataStore:
+    """SQLite store for filing and chunk metadata."""
 
     def __init__(self, db_path: Path):
         db_path.parent.mkdir(parents=True, exist_ok=True)
@@ -36,6 +37,19 @@ class MetadataStore:
                 start_idx INTEGER NOT NULL,
                 end_idx INTEGER NOT NULL,
                 UNIQUE(filing_accession, start_idx)
+            );
+
+            CREATE TABLE IF NOT EXISTS chunks (
+                chunk_id TEXT PRIMARY KEY,
+                filing_accession TEXT NOT NULL REFERENCES filings(accession_number),
+                section_id INTEGER NOT NULL REFERENCES sections(id),
+                ticker TEXT NOT NULL,
+                period_end TEXT NOT NULL,
+                filing_type TEXT NOT NULL,
+                section_type TEXT NOT NULL,
+                text TEXT NOT NULL,
+                token_count INTEGER NOT NULL,
+                chunk_index INTEGER NOT NULL
             );
         """)
 
@@ -108,6 +122,41 @@ class MetadataStore:
         else:
             row = self.conn.execute("SELECT COUNT(*) FROM sections").fetchone()
         return row[0]
+
+    def get_unindexed_sections(self) -> list[tuple]:
+        """Returns sections from filings that have no chunks yet.
+
+        Each row: (section_id, filing_accession, ticker, period_end,
+                    filing_type, section_type, text)
+        """
+        return self.conn.execute("""
+            SELECT s.id, s.filing_accession, f.ticker, f.period_end,
+                   f.filing_type, s.section_type, s.text
+            FROM sections s
+            JOIN filings f ON s.filing_accession = f.accession_number
+            WHERE f.accession_number NOT IN (
+                SELECT DISTINCT filing_accession FROM chunks
+            )
+            ORDER BY f.ticker, f.period_end, s.id
+        """).fetchall()
+
+    def insert_chunks(self, chunks: list[Chunk]):
+        self.conn.executemany(
+            """INSERT OR IGNORE INTO chunks
+               (chunk_id, filing_accession, section_id, ticker, period_end,
+                filing_type, section_type, text, token_count, chunk_index)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            [
+                (c.chunk_id, c.filing_accession, int(c.chunk_id.split("_")[-2]),
+                 c.ticker, str(c.period_end), c.filing_type, c.section_type,
+                 c.text, c.token_count, c.chunk_index)
+                for c in chunks
+            ],
+        )
+        self.conn.commit()
+
+    def count_chunks(self) -> int:
+        return self.conn.execute("SELECT COUNT(*) FROM chunks").fetchone()[0]
 
     def close(self):
         self.conn.close()
