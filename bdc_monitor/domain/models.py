@@ -33,3 +33,44 @@ class Chunk(BaseModel):
     text: str
     token_count: int
     chunk_index: int  # position within the section
+
+
+class RetrievedChunk(BaseModel):
+    chunk: Chunk
+    score: float
+    rank: int
+    source: str  # "dense", "sparse", or "hybrid"
+
+
+class Citation(BaseModel):
+    chunk_id: str
+    text_span: str
+    filing_accession: str
+    ticker: str
+    period_end: date
+    section_type: str
+
+
+class Answer(BaseModel):
+    question: str
+    answer_text: str
+    citations: list[Citation]
+    chunks_used: list[RetrievedChunk]
+    metadata: dict = {}
+
+
+class EvalQuestion(BaseModel):
+    question: str
+    expected_facts: list[str]
+    relevant_filings: list[str]  # accession numbers
+    relevant_section_types: list[str]
+    difficulty: str  # easy, medium, hard
+
+
+class EvalResult(BaseModel):
+    question: EvalQuestion
+    answer: Answer
+    retrieval_recall: float
+    citation_precision: float
+    fact_recall: float
+    config_name: str = ""
