@@ -32,6 +32,7 @@ def _chroma_to_chunks(results: dict) -> list[RetrievedChunk]:
     for i, (chunk_id, dist, text, meta) in enumerate(
         zip(ids, distances, documents, metadatas)
     ):
+        # parse chunk_index from chunk_id: {accession}_{section_id}_{index}
         parts = chunk_id.rsplit("_", 2)
         chunk_index = int(parts[-1]) if len(parts) >= 2 else 0
 
@@ -80,4 +81,51 @@ class SparseRetriever(Retriever):
         return [
             RetrievedChunk(chunk=chunk, score=score, rank=i + 1, source="sparse")
             for i, (chunk, score) in enumerate(results)
+        ]
+
+
+class HybridRetriever(Retriever):
+    """Merges dense + sparse results using reciprocal rank fusion."""
+
+    def __init__(
+        self,
+        dense: DenseRetriever,
+        sparse: SparseRetriever,
+        rrf_k: int = 60,
+        top_k: int = 20,
+    ):
+        self.dense = dense
+        self.sparse = sparse
+        self.rrf_k = rrf_k
+        self.default_top_k = top_k
+
+    def retrieve(self, query: str, top_k: int | None = None, where: dict | None = None):
+        k = top_k or self.default_top_k
+
+        dense_results = self.dense.retrieve(query, top_k=k, where=where)
+        sparse_results = self.sparse.retrieve(query, top_k=k, where=where)
+
+        # RRF: score = sum of 1/(k + rank) across both lists
+        scores: dict[str, float] = {}
+        chunk_map: dict[str, Chunk] = {}
+
+        for rc in dense_results:
+            cid = rc.chunk.chunk_id
+            scores[cid] = scores.get(cid, 0) + 1.0 / (self.rrf_k + rc.rank)
+            chunk_map[cid] = rc.chunk  # prefer dense version
+
+        for rc in sparse_results:
+            cid = rc.chunk.chunk_id
+            scores[cid] = scores.get(cid, 0) + 1.0 / (self.rrf_k + rc.rank)
+            if cid not in chunk_map:
+                chunk_map[cid] = rc.chunk
+
+        # sort by RRF score, assign new ranks
+        ranked = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:k]
+
+        return [
+            RetrievedChunk(
+                chunk=chunk_map[cid], score=score, rank=i + 1, source="hybrid"
+            )
+            for i, (cid, score) in enumerate(ranked)
         ]
