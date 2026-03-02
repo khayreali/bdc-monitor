@@ -81,7 +81,56 @@ def ask(
 ):
     """Ask a question about BDC filings."""
     logging.basicConfig(level=logging.INFO)
-    typer.echo("not implemented yet")
+    settings = load_settings()
+
+    from bdc_monitor.generation.generator import Generator
+    from bdc_monitor.generation.llm_client import AnthropicClient, OpenAIClient
+    from bdc_monitor.generation.rag_pipeline import RAGPipeline
+    from bdc_monitor.indexing.bm25_index import BM25Index
+    from bdc_monitor.indexing.embedder import OpenAIEmbedder
+    from bdc_monitor.indexing.vector_store import VectorStore
+    from bdc_monitor.retrieval.context_assembler import ContextAssembler
+    from bdc_monitor.retrieval.retrievers import DenseRetriever, HybridRetriever, SparseRetriever
+
+    if not settings.openai_api_key:
+        typer.echo("error: OPENAI_API_KEY not set in .env")
+        raise typer.Exit(1)
+
+    vs = VectorStore(chroma_dir=settings.chroma_dir)
+    if vs.count() == 0:
+        typer.echo("error: no indexed chunks. run 'bdc index' first.")
+        raise typer.Exit(1)
+
+    embedder = OpenAIEmbedder(api_key=settings.openai_api_key)
+    bm25 = BM25Index(persist_path=settings.data_dir / "bm25_index.pkl")
+
+    dense = DenseRetriever(vs, embedder, top_k=settings.top_k)
+    sparse = SparseRetriever(bm25, top_k=settings.top_k)
+    retriever = HybridRetriever(dense, sparse, rrf_k=settings.rrf_k, top_k=settings.top_k)
+
+    if settings.default_llm == "anthropic":
+        if not settings.anthropic_api_key:
+            typer.echo("error: ANTHROPIC_API_KEY not set in .env")
+            raise typer.Exit(1)
+        llm = AnthropicClient(settings.anthropic_api_key, settings.anthropic_model)
+    else:
+        if not settings.openai_api_key:
+            typer.echo("error: OPENAI_API_KEY not set in .env")
+            raise typer.Exit(1)
+        llm = OpenAIClient(settings.openai_api_key, settings.openai_model)
+
+    assembler = ContextAssembler()
+    generator = Generator(llm, assembler)
+    pipeline = RAGPipeline(retriever=retriever, generator=generator)
+
+    answer = pipeline.ask(question)
+
+    typer.echo(f"\n{answer.answer_text}\n")
+    if answer.citations:
+        typer.echo("Sources:")
+        for i, c in enumerate(answer.citations, 1):
+            typer.echo(f"  [{i}] {c.ticker} | {c.period_end} | {c.section_type} ({c.chunk_id[:40]}...)")
+    typer.echo(f"\n({len(answer.chunks_used)} chunks retrieved, {len(answer.citations)} cited)")
 
 
 @app.command("eval")
