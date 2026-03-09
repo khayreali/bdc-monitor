@@ -90,6 +90,8 @@ def ask(
     from bdc_monitor.indexing.embedder import OpenAIEmbedder
     from bdc_monitor.indexing.vector_store import VectorStore
     from bdc_monitor.retrieval.context_assembler import ContextAssembler
+    from bdc_monitor.retrieval.query_router import QueryRouter
+    from bdc_monitor.retrieval.reranker import Reranker
     from bdc_monitor.retrieval.retrievers import DenseRetriever, HybridRetriever, SparseRetriever
 
     if not settings.openai_api_key:
@@ -114,14 +116,16 @@ def ask(
             raise typer.Exit(1)
         llm = AnthropicClient(settings.anthropic_api_key, settings.anthropic_model)
     else:
-        if not settings.openai_api_key:
-            typer.echo("error: OPENAI_API_KEY not set in .env")
-            raise typer.Exit(1)
         llm = OpenAIClient(settings.openai_api_key, settings.openai_model)
 
     assembler = ContextAssembler()
     generator = Generator(llm, assembler)
-    pipeline = RAGPipeline(retriever=retriever, generator=generator)
+    router = QueryRouter(llm)
+    reranker = Reranker(cohere_api_key=settings.cohere_api_key, top_k=settings.rerank_top_k)
+    pipeline = RAGPipeline(
+        retriever=retriever, generator=generator,
+        reranker=reranker, query_router=router,
+    )
 
     answer = pipeline.ask(question)
 
