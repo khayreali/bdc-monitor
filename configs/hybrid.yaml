@@ -1,0 +1,6 @@
+name: hybrid
+chunker: fixed
+retriever: hybrid
+reranker: false
+top_k: 20
+llm: anthropic

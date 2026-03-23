@@ -1,0 +1,6 @@
+name: sparse_only
+chunker: fixed
+retriever: sparse
+reranker: false
+top_k: 20
+llm: anthropic

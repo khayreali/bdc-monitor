@@ -1,0 +1,191 @@
+# starter eval set — expected_facts and relevant_filings are rough guesses,
+# need to hand-correct after first real ingestion run
+#
+# corpus covers 8 BDCs from 2023-12-31 to 2025-12-31 (10-Q and 10-K only)
+# NOTE: no shareholder letters ingested, no tender_offer sections found in corpus
+#
+# ablation v1 results: 8/20 questions got fact_recall=0 across all configs.
+# most failures are cross-period/cross-issuer questions where the expected_facts
+# are too vague or the data isn't cleanly in the filings. flagged below.
+
+questions:
+  # --- easy: single filing, single fact ---
+  - question: "What was OBDC's net asset value per share as of Q4 2025?"
+    expected_facts:
+      # TODO: needs hand-review — Q4 2025 is a 10-K, not 10-Q
+      - "NAV per share reported in Q4 2025 10-K"
+    relevant_filings: []
+    relevant_section_types: ["mdna"]
+    difficulty: easy
+
+  - question: "What is Ares Capital's total investment portfolio fair value in their most recent 10-K?"
+    expected_facts:
+      - "total fair value of investment portfolio"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments"]
+    difficulty: easy
+
+  - question: "Did Prospect Capital report any non-accrual loans in Q3 2025?"
+    expected_facts:
+      - "non-accrual status loans listed or mentioned"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments", "notes"]
+    difficulty: easy
+
+  - question: "What was FSK's debt-to-equity ratio in Q2 2025?"
+    expected_facts:
+      - "leverage ratio or debt-to-equity figure"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "notes"]
+    difficulty: easy
+
+  - question: "What dividend did Blue Owl Technology Finance declare in Q4 2025?"
+    expected_facts:
+      - "declared dividend per share"
+    relevant_filings: []
+    relevant_section_types: ["notes", "other"]
+    difficulty: easy
+
+  # TODO: needs hand-review — all configs got fact_recall=0. system retrieves
+  # the right sections but the LLM answer may express the percentage differently
+  # than expected. check actual BCRED SOI for first lien breakdown.
+  - question: "What percentage of BCRED's portfolio was in first lien loans as of Q4 2025?"
+    expected_facts:
+      - "first lien percentage of total portfolio"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments", "mdna"]
+    difficulty: easy
+
+  - question: "What was KKR FS Income Trust's net investment income per share in Q3 2025?"
+    expected_facts:
+      - "NII per share"
+    relevant_filings: []
+    relevant_section_types: ["mdna"]
+    difficulty: easy
+
+  # --- medium: cross-period, single BDC ---
+
+  # TODO: needs hand-review — all configs got fact_recall=0. no tender_offer
+  # sections in corpus, and OBDC may not report subscription rates in MD&A.
+  # verify this data actually exists in the filings before keeping this question.
+  - question: "How has OBDC's tender offer subscription rate changed over the last four quarters?"
+    expected_facts:
+      - "subscription rates for each of the last 4 quarters"
+      - "trend direction"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "other"]
+    difficulty: medium
+
+  # TODO: needs hand-review — all configs got fact_recall=0. cross-period
+  # trend questions need the system to pull from multiple filings. expected_facts
+  # should list specific leverage numbers if available.
+  - question: "How has FS KKR Capital Corp's leverage ratio trended over the last four quarters?"
+    expected_facts:
+      - "leverage ratio for each quarter"
+      - "whether trending up or down"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "notes"]
+    difficulty: medium
+
+  - question: "Track ARCC's non-accrual rate as a percentage of portfolio over the last year."
+    expected_facts:
+      - "non-accrual rates by quarter"
+      - "trend description"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments", "mdna"]
+    difficulty: medium
+
+  - question: "How has Prospect Capital's NAV per share changed quarter over quarter since Q1 2025?"
+    expected_facts:
+      - "NAV per share for each quarter"
+      - "percentage change between quarters"
+    relevant_filings: []
+    relevant_section_types: ["mdna"]
+    difficulty: medium
+
+  # TODO: needs hand-review — all configs got fact_recall=0. BCRED may not
+  # discuss redemption demand in MD&A. check filings to see if this topic
+  # is actually covered, or rewrite the question.
+  - question: "What has BCRED said about redemption demand in their recent MD&A filings?"
+    expected_facts:
+      - "redemption commentary from MD&A"
+      - "any changes in tone or framing"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "other"]
+    difficulty: medium
+
+  - question: "How has Apollo Debt Solutions' portfolio composition shifted between Q1 2025 and Q3 2025?"
+    expected_facts:
+      - "sector or asset type breakdown at both dates"
+      - "notable shifts"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments", "mdna"]
+    difficulty: medium
+
+  # TODO: needs hand-review — all configs got fact_recall=0. comparing risk
+  # factors across 10-Ks is hard for a RAG system — need to retrieve from both
+  # filings and diff them. may need more specific expected_facts.
+  - question: "What risk factors has Blue Owl Technology Finance added or removed over the last two 10-Ks?"
+    expected_facts:
+      - "new risk factors added"
+      - "risk factors removed or materially changed"
+    relevant_filings: []
+    relevant_section_types: ["risk_factors"]
+    difficulty: medium
+
+  # --- hard: cross-issuer or reconciliation ---
+
+  - question: "Which BDCs in the corpus discussed capping or limiting redemptions in Q4 2025, and how did each characterize the cause in their MD&A?"
+    expected_facts:
+      - "list of BDCs that discussed redemption caps"
+      - "each manager's stated rationale"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "other"]
+    difficulty: hard
+
+  - question: "Compare leverage ratios across all 8 BDCs as of their most recent filings. Which are above 1.0x and which are below?"
+    expected_facts:
+      - "leverage ratio for each BDC"
+      - "above/below 1.0x classification"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "notes"]
+    difficulty: hard
+
+  # TODO: needs hand-review — all configs got fact_recall=0. reconciliation
+  # questions are the hardest category. needs very specific expected_facts
+  # grounded in what the filings actually say.
+  - question: "For BDCs that reported increased non-accruals in Q4 2025, did their MD&A acknowledge the deterioration or downplay it?"
+    expected_facts:
+      - "which BDCs had increased non-accruals"
+      - "comparison of quantitative data vs narrative tone"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments", "mdna"]
+    difficulty: hard
+
+  # TODO: needs hand-review — all configs got fact_recall=0. cross-issuer
+  # ranking needs data from all 8 BDCs which 20 chunks can't cover.
+  - question: "Rank the 8 BDCs by net investment income yield on NAV for the most recent quarter. Which ones are covering their dividend?"
+    expected_facts:
+      - "NII yield for each BDC"
+      - "dividend coverage status"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "notes"]
+    difficulty: hard
+
+  # TODO: needs hand-review — all configs got fact_recall=0. cross-period
+  # cross-section comparison. may need to be broken into simpler sub-questions.
+  - question: "Which BDCs increased their allocation to second lien or subordinated debt between 2024 and 2025, and did any of them flag this as a risk?"
+    expected_facts:
+      - "BDCs with increased second lien exposure"
+      - "whether risk factors mention this shift"
+    relevant_filings: []
+    relevant_section_types: ["schedule_of_investments", "risk_factors"]
+    difficulty: hard
+
+  - question: "Across all BDCs, which managers explicitly discussed interest rate sensitivity in their most recent MD&A, and what hedging strategies did they describe?"
+    expected_facts:
+      - "BDCs that discussed rate sensitivity"
+      - "hedging strategies mentioned"
+    relevant_filings: []
+    relevant_section_types: ["mdna", "risk_factors"]
+    difficulty: hard

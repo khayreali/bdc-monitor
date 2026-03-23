@@ -1,0 +1,7 @@
+name: hybrid_reranked
+chunker: structure
+retriever: hybrid
+reranker: true
+top_k: 40
+rerank_top_k: 20
+llm: anthropic

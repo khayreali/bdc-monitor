@@ -1,0 +1,6 @@
+name: dense_only
+chunker: fixed
+retriever: dense
+reranker: false
+top_k: 20
+llm: anthropic
