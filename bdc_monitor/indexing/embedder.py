@@ -33,3 +33,17 @@ class OpenAIEmbedder(EmbeddingModel):
                 time.sleep(wait)
 
         raise RuntimeError("embedding failed after 6 attempts")
+
+
+class LocalEmbedder(EmbeddingModel):
+    """Fallback when no OpenAI key is available."""
+
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+        from sentence_transformers import SentenceTransformer
+        self.model = SentenceTransformer(model_name)
+
+    def embed(self, texts: list[str]) -> list[list[float]]:
+        if not texts:
+            return []
+        embeddings = self.model.encode(texts, show_progress_bar=False)
+        return [e.tolist() for e in embeddings]
