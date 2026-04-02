@@ -1,0 +1,594 @@
+{
+  "dense_only": {
+    "n_questions": 20,
+    "retrieval_recall": 0.575,
+    "citation_precision": 0.39166666666666666,
+    "fact_recall": 0.475,
+    "per_question": [
+      {
+        "question": "What was OBDC's net asset value per share as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 0.5,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What is Ares Capital's total investment portfolio fair value in their most recent 10-K?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "Did Prospect Capital report any non-accrual loans in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What was FSK's debt-to-equity ratio in Q2 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What dividend did Blue Owl Technology Finance declare in Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What percentage of BCRED's portfolio was in first lien loans as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What was KKR FS Income Trust's net investment income per share in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "How has OBDC's tender offer subscription rate changed over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has FS KKR Capital Corp's leverage ratio trended over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Track ARCC's non-accrual rate as a percentage of portfolio over the last year.",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.2,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "How has Prospect Capital's NAV per share changed quarter over quarter since Q1 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What has BCRED said about redemption demand in their recent MD&A filings?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has Apollo Debt Solutions' portfolio composition shifted between Q1 2025 and Q3 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What risk factors has Blue Owl Technology Finance added or removed over the last two 10-Ks?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs in the corpus discussed capping or limiting redemptions in Q4 2025, and how did each characterize the cause in their MD&A?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "Compare leverage ratios across all 8 BDCs as of their most recent filings. Which are above 1.0x and which are below?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "For BDCs that reported increased non-accruals in Q4 2025, did their MD&A acknowledge the deterioration or downplay it?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Rank the 8 BDCs by net investment income yield on NAV for the most recent quarter. Which ones are covering their dividend?",
+        "difficulty": "hard",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs increased their allocation to second lien or subordinated debt between 2024 and 2025, and did any of them flag this as a risk?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.3333333333333333,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Across all BDCs, which managers explicitly discussed interest rate sensitivity in their most recent MD&A, and what hedging strategies did they describe?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.8,
+        "fact_recall": 1.0
+      }
+    ]
+  },
+  "hybrid": {
+    "n_questions": 20,
+    "retrieval_recall": 0.775,
+    "citation_precision": 0.425,
+    "fact_recall": 0.5,
+    "per_question": [
+      {
+        "question": "What was OBDC's net asset value per share as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What is Ares Capital's total investment portfolio fair value in their most recent 10-K?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "Did Prospect Capital report any non-accrual loans in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What was FSK's debt-to-equity ratio in Q2 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What dividend did Blue Owl Technology Finance declare in Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What percentage of BCRED's portfolio was in first lien loans as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What was KKR FS Income Trust's net investment income per share in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "How has OBDC's tender offer subscription rate changed over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has FS KKR Capital Corp's leverage ratio trended over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Track ARCC's non-accrual rate as a percentage of portfolio over the last year.",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "How has Prospect Capital's NAV per share changed quarter over quarter since Q1 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What has BCRED said about redemption demand in their recent MD&A filings?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.3333333333333333,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has Apollo Debt Solutions' portfolio composition shifted between Q1 2025 and Q3 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.3333333333333333,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "What risk factors has Blue Owl Technology Finance added or removed over the last two 10-Ks?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs in the corpus discussed capping or limiting redemptions in Q4 2025, and how did each characterize the cause in their MD&A?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "Compare leverage ratios across all 8 BDCs as of their most recent filings. Which are above 1.0x and which are below?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "For BDCs that reported increased non-accruals in Q4 2025, did their MD&A acknowledge the deterioration or downplay it?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Rank the 8 BDCs by net investment income yield on NAV for the most recent quarter. Which ones are covering their dividend?",
+        "difficulty": "hard",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs increased their allocation to second lien or subordinated debt between 2024 and 2025, and did any of them flag this as a risk?",
+        "difficulty": "hard",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.3333333333333333,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Across all BDCs, which managers explicitly discussed interest rate sensitivity in their most recent MD&A, and what hedging strategies did they describe?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      }
+    ]
+  },
+  "hybrid_reranked": {
+    "n_questions": 20,
+    "retrieval_recall": 0.625,
+    "citation_precision": 0.4642857142857143,
+    "fact_recall": 0.35,
+    "per_question": [
+      {
+        "question": "What was OBDC's net asset value per share as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What is Ares Capital's total investment portfolio fair value in their most recent 10-K?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Did Prospect Capital report any non-accrual loans in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What was FSK's debt-to-equity ratio in Q2 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What dividend did Blue Owl Technology Finance declare in Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What percentage of BCRED's portfolio was in first lien loans as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What was KKR FS Income Trust's net investment income per share in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "How has OBDC's tender offer subscription rate changed over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has FS KKR Capital Corp's leverage ratio trended over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.0,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Track ARCC's non-accrual rate as a percentage of portfolio over the last year.",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.25,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "How has Prospect Capital's NAV per share changed quarter over quarter since Q1 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "What has BCRED said about redemption demand in their recent MD&A filings?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has Apollo Debt Solutions' portfolio composition shifted between Q1 2025 and Q3 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What risk factors has Blue Owl Technology Finance added or removed over the last two 10-Ks?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs in the corpus discussed capping or limiting redemptions in Q4 2025, and how did each characterize the cause in their MD&A?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "Compare leverage ratios across all 8 BDCs as of their most recent filings. Which are above 1.0x and which are below?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "For BDCs that reported increased non-accruals in Q4 2025, did their MD&A acknowledge the deterioration or downplay it?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Rank the 8 BDCs by net investment income yield on NAV for the most recent quarter. Which ones are covering their dividend?",
+        "difficulty": "hard",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs increased their allocation to second lien or subordinated debt between 2024 and 2025, and did any of them flag this as a risk?",
+        "difficulty": "hard",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.25,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Across all BDCs, which managers explicitly discussed interest rate sensitivity in their most recent MD&A, and what hedging strategies did they describe?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.2857142857142857,
+        "fact_recall": 0.5
+      }
+    ]
+  },
+  "sparse_only": {
+    "n_questions": 20,
+    "retrieval_recall": 0.75,
+    "citation_precision": 0.3825,
+    "fact_recall": 0.275,
+    "per_question": [
+      {
+        "question": "What was OBDC's net asset value per share as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What is Ares Capital's total investment portfolio fair value in their most recent 10-K?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "Did Prospect Capital report any non-accrual loans in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "What was FSK's debt-to-equity ratio in Q2 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.3333333333333333,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What dividend did Blue Owl Technology Finance declare in Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What percentage of BCRED's portfolio was in first lien loans as of Q4 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.5,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What was KKR FS Income Trust's net investment income per share in Q3 2025?",
+        "difficulty": "easy",
+        "retrieval_recall": 0.0,
+        "citation_precision": 0.0,
+        "fact_recall": 1.0
+      },
+      {
+        "question": "How has OBDC's tender offer subscription rate changed over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has FS KKR Capital Corp's leverage ratio trended over the last four quarters?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Track ARCC's non-accrual rate as a percentage of portfolio over the last year.",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "How has Prospect Capital's NAV per share changed quarter over quarter since Q1 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 1.0,
+        "fact_recall": 0.5
+      },
+      {
+        "question": "What has BCRED said about redemption demand in their recent MD&A filings?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.4,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "How has Apollo Debt Solutions' portfolio composition shifted between Q1 2025 and Q3 2025?",
+        "difficulty": "medium",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "What risk factors has Blue Owl Technology Finance added or removed over the last two 10-Ks?",
+        "difficulty": "medium",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs in the corpus discussed capping or limiting redemptions in Q4 2025, and how did each characterize the cause in their MD&A?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Compare leverage ratios across all 8 BDCs as of their most recent filings. Which are above 1.0x and which are below?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 1.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "For BDCs that reported increased non-accruals in Q4 2025, did their MD&A acknowledge the deterioration or downplay it?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Rank the 8 BDCs by net investment income yield on NAV for the most recent quarter. Which ones are covering their dividend?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.0,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Which BDCs increased their allocation to second lien or subordinated debt between 2024 and 2025, and did any of them flag this as a risk?",
+        "difficulty": "hard",
+        "retrieval_recall": 1.0,
+        "citation_precision": 0.25,
+        "fact_recall": 0.0
+      },
+      {
+        "question": "Across all BDCs, which managers explicitly discussed interest rate sensitivity in their most recent MD&A, and what hedging strategies did they describe?",
+        "difficulty": "hard",
+        "retrieval_recall": 0.5,
+        "citation_precision": 0.16666666666666666,
+        "fact_recall": 0.5
+      }
+    ]
+  }
+}
