@@ -4,7 +4,7 @@ A local RAG pipeline that pulls SEC filings for 8 non-traded and listed BDCs, in
 
 I built this because I wanted to understand how RAG systems actually work, not just call `langchain.RetrievalQA` and hope for the best. I have an accounting background, and the BDC space is interesting because there's real tension between what the numbers show (Schedule of Investments, leverage ratios) and what managers write in their MD&A. I wanted a tool that could surface those gaps.
 
-The part I'm most proud of is the ablation runner. Anyone can build a RAG pipeline — the harder question is whether different configurations actually produce different results and why.
+The part I'm most proud of is the ablation runner. Anyone can build a RAG pipeline, the harder question is whether different configurations actually produce different results and why.
 
 ## does it work?
 
